@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/*---------------------*/
+/* HEADER */
+/* ------------------- */
+#header {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    margin: 0;
+    padding: 24px;
+    z-index: 99;
+    transition: all 500ms ease-in-out;
+}
+#header .fas {
+    font-size: 1.1em;
+}
+#filter-box, #search-box {
+    margin: auto 0;
+    cursor: pointer;
+    transition-duration: 200ms;
+}
+#filter-box:hover, #search-box:hover {
+    transform: scale(0.95);
+}
+#filter-text {
+    margin-left: 12px;
+    text-align: left;
+}
+#search-text {
+    margin-right: 12px;
+    text-align: right;
+}
+#filter-text, #search-text {
+    letter-spacing: 1px;
+    font-size: 1.2em;
+    font-weight: 600;
+    width: 0;
+    display: inline;
+    text-overflow: clip;
+}
+
+#logo {
+    font-weight: 700;
+    font-size: 1.8em;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+
+/* Footer */
+
+#footer {
+    text-align: center;
+    padding: 18px;
+    margin-top: 8px;
+    background-color: white;
+}

@@ -1,0 +1,151 @@
+{{define "search_part"}}
+<!-- search part -->
+<div id="search-overlay"></div>
+<div id="search-results">
+  <form>
+    <div id="search-zone">
+      <input type="text" id="input-search" name="search" placeholder="Rechercher..." list="suggestions">
+      <datalist id="suggestions">
+        {{ range .FinalArtists }}
+        <option value="{{ .Name }} - artist/band">{{ .Name }} - artist/band</option>
+        <option value="{{ .CreationDate }} - creation-date">{{ .CreationDate }} - creation-date</option>
+        {{ range $member := .MemberList }}
+        <option value="{{ $member }} - member">{{ $member }} - member</option>
+        {{ end }}
+        <option value="{{ .FirstAlbum }} - first-album">{{ .FirstAlbum }} - first-album</option>
+        {{ range $locations, $dates := .Relations.DatesLocations }}
+        <option value="{{$locations}} - location">{{$locations}} - location</option>
+        {{ range $i, $date := $dates}}
+        <option value="{{ $date }} - concert-date">{{ $date }} - concert-date</option>
+        {{ end }}
+        {{ end }}
+        {{ end }}
+      </datalist>
+      <div id="close-search"><span>&times;</span></div>
+    </div>
+  </form>
+  <div id="search-block-container">
+    <span id="no-matches">No matches.</span>
+    {{ range .FinalArtists}}
+    <div class="search-body" id="res_{{.Id}}">
+      <div style="background-image:url('{{ .Image }}');background-size:cover;background-position: center center;"
+        class="search-image"></div>
+      <div class="search-info">
+        <p>
+          <b><span class="artist">{{ .Name }}</span> (<span class="creation-date">{{ .CreationDate }}</span>): </b>
+          <span class="members">{{index .Members 0}}</span>,
+          <b>First Album: </b><span class="first-album">{{ .FirstAlbum }}</span>,
+          <b>Upcoming Concerts: </b>
+          {{ range $locations, $dates := .Relations.DatesLocations }}
+          <span class="locations">{{$locations}}</span>:
+          {{ range $i, $date := $dates}}
+          <span class="concert-date">{{ $date}}</span>,
+          {{ end }}
+          {{ end }}
+        </p>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</div>
+<!-- filter part -->
+<div id="filter-overlay"></div>
+<div id="filter-block">
+  <div id="filter-zone">
+    <div id="Filter-header">Filters</div>
+    <div id="close-filter"><span>&times;</span></div>
+  </div>
+
+  <div id="filter-body">
+    <div id="filter-fields">
+      <!-- Creation Date -->
+      <div id="creationDate_block">
+        <label class="filter-section">Creation Date</label>
+        <div class="range-date">
+          <label for="minCreationDate" id="minCreationDate_label">1963</label>&nbsp;to&nbsp;
+          <input name="minCreationDate" value="1963">
+          <input name="maxCreationDate" value="2018">
+          <label for="maxCreationDate" id="maxCreationDate_label">2018</label>
+        </div>
+
+        <div class="range-bouton">
+          <span class="range-selected"></span>
+        </div>
+        <div class="range-input">
+          <input type="range" class="min" min="1963" max="2018" value="1963" step="1">
+          <input type="range" class="max" min="1963" max="2018" value="2018" step="1">
+        </div>
+      </div>
+
+      <!-- First Album -->
+      <div id="firstAlbum_block">
+        <label class="filter-section">First Album</label>
+
+        <div class="range-dates">
+          <label id="minFirstAlbum_label">1958</label>&nbsp;to&nbsp;
+          <input name="minFirstAlbum" value="1958">
+          <input name="maxFirstAlbum" value="2015">
+          <label id="maxFirstAlbum_label">2015</label>
+        </div>
+
+        <div class="range-bouton">
+          <span class="range-selecteds"></span>
+        </div>
+        <div class="range-inputs">
+          <input type="range" class="mindate" min="1958" max="2015" value="1958" step="1">
+          <input type="range" class="maxdate" min="1958" max="2015" value="2015" step="1">
+        </div>
+      </div>
+
+      <!-- Checkboxes -->
+      <div id="checkbox">
+        <label class="filter-section">Number Of Members</label>
+        <div class="range-date">
+          <label id="checkedBox_Num">1-2-3-4-5-6-7-8</label>
+        </div>
+
+        <div id="checkbox-label">
+          <label for="checkbox-1">1</label>
+          <label for="checkbox-2">2</label>
+          <label for="checkbox-3">3</label>
+          <label for="checkbox-4">4</label>
+          <label for="checkbox-5">5</label>
+          <label for="checkbox-6">6</label>
+          <label for="checkbox-7">7</label>
+          <label for="checkbox-8">8</label>
+        </div>
+        <div id="checkbox-number">
+          <input type="checkbox" id="checkbox-1" checked>
+          <input type="checkbox" id="checkbox-2" checked>
+          <input type="checkbox" id="checkbox-3" checked>
+          <input type="checkbox" id="checkbox-4" checked>
+          <input type="checkbox" id="checkbox-5" checked>
+          <input type="checkbox" id="checkbox-6" checked>
+          <input type="checkbox" id="checkbox-7" checked>
+          <input type="checkbox" id="checkbox-8" checked>
+        </div>
+      </div>
+
+      <!-- Filter location -->
+      <div id="filter-location">
+        <div id="search-location">
+          <input type="text" id="input-location-filter" placeholder="Choose a country ..." list="places">
+          <datalist id="places">
+            {{ range $i, $place := .UniqueCities }}
+            <option value="{{$place}}">{{$place}}</option>
+            {{ end }}
+          </datalist>
+          <i class="fas fa-location-dot"></i>
+        </div>
+      </div>
+    </div>
+
+    <div id="submit-filter">
+      <button id="reset">Reset</button>
+      <button id="apply">
+        Apply
+      </button>
+    </div>
+  </div>
+</div>
+{{end}}

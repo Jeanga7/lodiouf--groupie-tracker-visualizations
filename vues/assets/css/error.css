@@ -1,0 +1,27 @@
+/* ERROR PAGES */
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    scrollbar-width: thin;
+    background-color: #EEE;
+}
+
+#error-container {
+    height: 80vh;
+    display: flex;
+    text-align: center;
+}
+
+#error-infos {
+    margin: auto;
+}
+
+#error-code {
+    font-size: clamp(4em, 12vw, 12em);
+    line-height: 1px;
+}
+#error-home-link {
+    margin-top: 4em;
+}

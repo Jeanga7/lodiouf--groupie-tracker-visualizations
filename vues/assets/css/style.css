@@ -1,0 +1,434 @@
+:root{
+    --primary-color: black;
+    --card-width: clamp(150px, 12vw, 200px);
+    --card-height: 190px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    scrollbar-width: thin;
+}
+/* ::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: #000;
+} */
+
+#container {
+    background-color: #EEE;
+    display: grid;
+    grid-template-rows: 104vh auto;
+    margin: 0;
+    padding: 0;
+    /* row-gap: clamp(12px, 5vh, 38px); */
+    margin-top: -16vh;
+}
+
+/* -------------------------- */
+/* SLIDER */
+/* -------------------------- */
+#slider {
+    background:linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/assets/img/slider.jpg');
+    background-size: cover;
+    background-position: center center;
+    display: grid;
+    grid-template-rows: 60% 40%;
+    justify-items: center;
+}
+#project-name {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: end;
+    width: fit-content;
+}
+#project-name h1 {
+    color: white;
+    font-size: clamp(1.8em, 5vw, 4em);
+    letter-spacing: 4px;
+    padding-right: 4px;
+    border-right: 8px solid white;
+    margin: 0 auto;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: 
+        typing 7s cubic-bezier(0,.98,.82,1),
+        blinking-caret .75s step-end infinite;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes typing {
+    from {width: 0;}
+    to {width: 100%;}
+}
+
+@keyframes blinking-caret {
+    from, to {border-color: transparent;}
+    50% {border-color: white;}
+}
+
+#call-to-action {
+    padding-bottom: 5vh;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    row-gap: 2em;
+}
+#see-artists {
+    background-color: white;
+    border-radius: 25px;
+    width: auto;
+    margin: 0 auto;
+    padding: 10px 22px;
+    font-weight: 700;
+    transition-timing-function: ease-in-out;
+    transition-property: background-color, color;
+    transition-duration: 200ms;
+    animation: float 3s ease-in-out infinite;
+}
+#see-artists:hover {
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
+
+#call-to-action .fa-angle-down {
+    color: white;
+    font-size: 2em;
+    cursor: pointer;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+/* -------------------------- */
+
+
+#modal {
+    height: 100vh;
+    width: 100vw;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    background-color: rgba(0, 0, 0,0.4);
+    backdrop-filter: blur(0px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    transition-timing-function: ease-in-out;
+    transition: visibility 500ms, opacity 500ms;
+ }
+ 
+
+#modal-content {
+    margin: auto;
+    background-color: white;
+    width: clamp(100px, 80vw, 200px);
+    height: auto;
+    padding: 12pt;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+#modal-close {
+    color: white;
+    background-color: #000;
+    border-radius: 50%;
+    padding: 0px 6px 6px 6px;
+    line-height: normal;
+    height: 17px;
+    margin: -5px -5px 0 0;
+    transition-duration: 200ms;
+    transition-property: color, background-color;
+    position: absolute;
+    right: -4pt;
+    top: -4pt;
+    z-index: 1;
+}
+#modal-close:hover {
+    color: white;
+    background-color: red;
+    cursor: pointer;
+}
+
+#modal-body {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 12pt;
+}
+
+#group-image {
+    border: 1px solid black;
+    border-radius: 12px;
+    width: 100%;
+}
+
+#group-infos {
+    font-size: 0.8em;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    height: clamp(50px, 50vh, 150px);
+    box-sizing: border-box;
+}
+
+/* SVG Arrow */
+.st0{
+    fill:var(--primary-color);
+    -webkit-transition: fill 500ms;
+    -moz-transition: fill 500ms;
+    -o-transition: fill 500ms;
+    transition: fill 500ms;
+}
+.st1{
+    fill-rule:evenodd;
+    clip-rule:evenodd;
+    fill:#FFFFFF;
+    transition-duration: 500ms;
+    transition-timing-function: fill-rule, clip-rule, fill;
+}
+
+#artists-list-title {
+    color: #000;
+    font-size: 2.5em;
+    margin: 2.4em 0 0.8em 0;
+    text-align: center;
+    font-weight: 200;
+    letter-spacing: 2px;
+}
+
+#artists-list {
+    padding: 1vw;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    justify-content: space-evenly;
+    justify-items: center;
+    row-gap: 1.8vw;
+}
+.artist-card {
+    background-color: white;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    width: var(--card-width);
+    height: var(--card-height);
+    flex-shrink: 0;
+    border-radius: 12px;
+    box-shadow: 0 0 5px rgb(194, 194, 194);
+    padding: 18px;
+    justify-content: space-between;
+    cursor: pointer;
+    transition-duration: 500ms;
+    transition-property: color, background-color, box-shadow;
+}
+
+.artist-image {
+    border: 1px solid rgb(131, 131, 131);
+    border-radius: 50%;
+    width: 60%;
+    height: auto;
+}
+.artist-name {
+    font-size: 0.85em;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 1px;
+    margin-top: 8px;
+}
+.artist-top-box {
+    display: flex;
+    flex-direction: column;
+}
+.artist-bottom-box {
+    display: flex;
+    justify-content: space-between;
+}
+.green-arrow {
+    display: flex;
+    height: 30px;
+    width: 30px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+}
+
+.voir-zone {
+    display: flex;
+    justify-content:end;
+}
+.voir-button {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 700;
+    border-radius: 15px;
+    height: 26px;
+    padding: 2px 22px 2px 8px;
+    margin-right: -30px;
+    display: inline;
+    width: 0px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    transition-duration: 400ms;
+    transition-property: width, background-color, color, padding;
+    transition-timing-function: ease-in-out;
+}
+
+.artist-concerts {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+/* Hover effects */
+.artist-card:hover {
+    box-shadow: 0 0 14px rgb(165, 165, 165);
+    background-color: black;
+    color: white;
+}
+.artist-card:hover .st0{fill:#FFFFFF;}
+.artist-card:hover .st1{fill-rule:evenodd;clip-rule:evenodd;fill:var(--primary-color);}
+.artist-card:hover .voir-button{
+    width: 2.5em;
+    padding: 2px 32px 2px 8px;
+    background-color: white;
+    color: black;
+}
+
+/* Hidden values */
+.artist-members, .artist-firstAlbum, .artist-relations {
+    display: none;
+}
+
+/* Map */
+#modal-map {
+    height: 200px;
+    display: flex;
+    position: relative;
+}
+#big-map {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 500ms ease-in-out;
+}
+
+#modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(10px);
+    z-index: 9998;
+    visibility: hidden;
+    display: flex;
+    transition: all 300ms ease-in-out;
+}
+.grow-map {
+    color: black;
+    background-color: white;
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 9990;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    display: flex;
+    transition: all 300ms ease-in-out;
+}
+.grow-map i {
+    margin: auto;
+}
+.grow-map:hover {
+    color: white;
+    background-color: black;
+}
+
+.map-picture {
+    border: 1px solid black;
+    height: 150px;
+    width: 150px;
+    border-radius: 8px;
+}
+
+
+/* Ripple preloader animation */
+.lds-ripple {
+    margin: auto;
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-ripple div {
+    position: absolute;
+    border: 4px solid #fff;
+    opacity: 1;
+    border-radius: 50%;
+    animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  }
+  .lds-ripple div:nth-child(2) {
+    animation-delay: -0.5s;
+  }
+  @keyframes lds-ripple {
+    0% {
+      top: 36px;
+      left: 36px;
+      width: 0;
+      height: 0;
+      opacity: 0;
+    }
+    4.9% {
+      top: 36px;
+      left: 36px;
+      width: 0;
+      height: 0;
+      opacity: 0;
+    }
+    5% {
+      top: 36px;
+      left: 36px;
+      width: 0;
+      height: 0;
+      opacity: 1;
+    }
+    100% {
+      top: 0px;
+      left: 0px;
+      width: 72px;
+      height: 72px;
+      opacity: 0;
+    }
+  }
