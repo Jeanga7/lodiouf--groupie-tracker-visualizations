@@ -3,6 +3,8 @@ document.querySelector("#filter-box").addEventListener("click", function () {
     openFilter();
 });
 
+var appliedFilter = false;
+
 function openFilter() {
     document.querySelector("#filter-overlay").style.visibility = "visible";
     document.querySelector("#filter-overlay").style.opacity = "1";
@@ -52,8 +54,8 @@ rangeInput.forEach((input) => {
         rangeDate[1].value = rangeInput[1].value;
         document.querySelector("#minCreationDate_label").innerHTML = rangeInput[0].value;
         document.querySelector("#maxCreationDate_label").innerHTML = rangeInput[1].value;
-        range.style.left = ((minRange - 1963) / (2018 - 1963)) * 100 + "%";
-        range.style.right = 100 - ((maxRange - 1963) / (2018 - 1963)) * 100 + "%";
+        range.style.left = ((minRange - 1950) / (2020 - 1950)) * 100 + "%";
+        range.style.right = 100 - ((maxRange - 1950) / (2020 - 1950)) * 100 + "%";
     });
 });
 
@@ -67,8 +69,8 @@ rangeDate.forEach((input) => {
         } else if (e.target.className === "max" && maxDate < minDate) {
             rangeInput[0].value = maxDate;
         }
-        range.style.left = ((rangeInput[0].value - 1963) / (2018 - 1963)) * 100 + "%";
-        range.style.right = 100 - ((rangeInput[1].value - 1963) / (2018 - 1963)) * 100 + "%";
+        range.style.left = ((rangeInput[0].value - 1950) / (2020 - 1950)) * 100 + "%";
+        range.style.right = 100 - ((rangeInput[1].value - 1950) / (2020 - 1950)) * 100 + "%";
     });
 });
 // Creation date ranges end here
@@ -98,8 +100,8 @@ rangeInputs.forEach((input) => {
         rangeDates[1].value = rangeInputs[1].value;
         document.querySelector("#minFirstAlbum_label").innerHTML = rangeInputs[0].value;
         document.querySelector("#maxFirstAlbum_label").innerHTML = rangeInputs[1].value;
-        rangedate.style.left = ((minRangedate - 1958) / (2015 - 1958)) * 100 + "%";
-        rangedate.style.right = 100 - ((maxRangedate - 1958) / (2015 - 1958)) * 100 + "%";
+        rangedate.style.left = ((minRangedate - 1950) / (2020 - 1950)) * 100 + "%";
+        rangedate.style.right = 100 - ((maxRangedate - 1950) / (2020 - 1950)) * 100 + "%";
     });
 });
 
@@ -112,8 +114,8 @@ rangeDates.forEach((input) => {
         } else if (e.target.className === "maxdate" && maxDatedate < minDatedate) {
             rangeInputs[0].value = maxDatedate;
         }
-        rangedate.style.left = ((rangeInputs[0].value - 1958) / (2015 - 1958)) * 100 + "%";
-        rangedate.style.right = 100 - ((rangeInputs[1].value - 1958) / (2015 - 1958)) * 100 + "%";
+        rangedate.style.left = ((rangeInputs[0].value - 1950) / (2020 - 1950)) * 100 + "%";
+        rangedate.style.right = 100 - ((rangeInputs[1].value - 1950) / (2020 - 1950)) * 100 + "%";
     });
 });
 
@@ -148,22 +150,22 @@ updateCheckedMembers();
 
 document.querySelector("#reset").addEventListener("click", () => {
     // Réinitialisation des filtres de  "Creation Dates"
-    rangeInput[0].value = 1963;
-    rangeInput[1].value = 2018;
-    rangeDate[0].value = 1963;
-    rangeDate[1].value = 2018;
-    document.querySelector("#minCreationDate_label").innerHTML = 1963;
-    document.querySelector("#maxCreationDate_label").innerHTML = 2018;
+    rangeInput[0].value = 1950;
+    rangeInput[1].value = 2020;
+    rangeDate[0].value = 1950;
+    rangeDate[1].value = 2020;
+    document.querySelector("#minCreationDate_label").innerHTML = 1950;
+    document.querySelector("#maxCreationDate_label").innerHTML = 2020;
     range.style.left = "0%";
     range.style.right = "0%";
 
     // Réinitialisation des filtres de  "First Album"
-    rangeInputs[0].value = 1958;
-    rangeInputs[1].value = 2015;
-    rangeDates[0].value = 1958;
-    rangeDates[1].value = 2015;
-    document.querySelector("#minFirstAlbum_label").innerHTML = 1958;
-    document.querySelector("#maxFirstAlbum_label").innerHTML = 2015;
+    rangeInputs[0].value = 1950;
+    rangeInputs[1].value = 2020;
+    rangeDates[0].value = 1950;
+    rangeDates[1].value = 2020;
+    document.querySelector("#minFirstAlbum_label").innerHTML = 1950;
+    document.querySelector("#maxFirstAlbum_label").innerHTML = 2020;
     rangedate.style.left = "0%";
     rangedate.style.right = "0%";
 
@@ -238,6 +240,7 @@ function applyFilter() {
             card.style.display = 'none';
         }
     });
+    appliedFilter = true;
 
     PrintResultsCount(resultsCount)
 }
@@ -266,9 +269,14 @@ function getYearFromDate(dateString) {
 
 function PrintResultsCount(resultsCount) {
     const artistCountElement = document.querySelector('#artistCount');
-    if (resultsCount > 0) {
+    if (appliedFilter) {
         artistCountElement.innerHTML = resultsCount + ' artists found.';
         artistCountElement.style.display = 'block';
+        if (resultsCount == 0) {
+            artistCountElement.style.color = 'red';
+        } else {
+            artistCountElement.style.color = 'green';
+        }
     } else {
         artistCountElement.innerHTML = '';
         artistCountElement.style.display = 'none';

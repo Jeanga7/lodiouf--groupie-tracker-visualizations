@@ -1,3 +1,3 @@
 git add .
-git commit -m "Correcting card design error."
+git commit -m "Last updates"
 git push
