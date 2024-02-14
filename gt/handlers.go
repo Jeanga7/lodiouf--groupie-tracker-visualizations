@@ -48,10 +48,19 @@ func HandlePage(w http.ResponseWriter, r *http.Request) {
 		data.Relations = *Endpoints["relation"].(*Relation)
 		data.UniqueCities = UniqueCities(data.Locations.Index)
 
+		allCreationDate, allFirstAlbum := []int{}, []int{}
+
 		for _, val := range data.Artists {
 			// data.FinalArtists = append(data.FinalArtists, FinalArtist{val.Id, val.Image, val.Name, []string{strings.Join(val.Members, ", ")}, val.CreationDate, FormatDates([]string{val.FirstAlbum})[0], data.Locations.Index[val.Id-1], data.Dates.Index[val.Id-1], data.Relations.Index[val.Id-1]})
 			data.FinalArtists = append(data.FinalArtists, FinalArtist{val.Id, val.Image, val.Name, val.Members, []string{strings.Join(val.Members, ", ")}, val.CreationDate, val.FirstAlbum, data.Locations.Index[val.Id-1], data.Dates.Index[val.Id-1], data.Relations.Index[val.Id-1]})
+			firstAlbum, err := strconv.Atoi(strings.Split(val.FirstAlbum, "-")[2])
+			if err != nil {
+				log.Fatal(err)
+			}
+			allCreationDate, allFirstAlbum = append(allCreationDate, val.CreationDate), append(allFirstAlbum, firstAlbum)
 		}
+
+		data.RangeFirstAlbum, data.RangeCreationDate = GetRange(allFirstAlbum), GetRange(allCreationDate)
 
 		t, err := (template.ParseFiles(FileNames...))
 		if err != nil {
@@ -68,6 +77,20 @@ func HandlePage(w http.ResponseWriter, r *http.Request) {
 
 		elapsed := time.Since(tStart)
 		log.Printf("Parsing took %.4fs\n", elapsed.Seconds())
+	}
+}
+
+func GetRange(l []int) Range {
+	for i := 0; i < len(l)-1; i++ {
+		for j := i; j < len(l); j++ {
+			if l[i] > l[j] {
+				l[i], l[j] = l[j], l[i]
+			}
+		}
+	}
+	return Range{
+		Min: l[0] - 1,
+		Max: l[len(l)-1] + 1,
 	}
 }
 

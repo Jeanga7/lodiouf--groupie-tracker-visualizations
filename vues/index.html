@@ -117,6 +117,13 @@
         <span class="grow-map"><i class="fas fa-times"></i></span>
     </div>
     {{template "search_part" .}}
+    <script>
+        var CreationDateMin = {{.RangeCreationDate.Min}};
+        var CreationDateMax = {{.RangeCreationDate.Max}};
+
+        var FirstAlbumMin = {{.RangeFirstAlbum.Min}};
+        var FirstAlbumMax = {{.RangeFirstAlbum.Max}};
+    </script>
 
     <script src="/assets/js/main.js"></script>
     <script src="/assets/js/header.js"></script>

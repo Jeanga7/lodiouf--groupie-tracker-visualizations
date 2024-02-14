@@ -43,12 +43,18 @@ type Index struct {
 //======================================================================================
 
 type AllData struct {
-	Artists      []Artist
-	Locations    Location
-	Dates        Date
-	Relations    Relation
-	FinalArtists []FinalArtist
-	UniqueCities []string
+	Artists           []Artist
+	Locations         Location
+	Dates             Date
+	Relations         Relation
+	FinalArtists      []FinalArtist
+	UniqueCities      []string
+	RangeFirstAlbum   Range
+	RangeCreationDate Range
+}
+
+type Range struct {
+	Min, Max int
 }
 
 // Données Artistes à afficher

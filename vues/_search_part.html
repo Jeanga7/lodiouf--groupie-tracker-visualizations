@@ -62,18 +62,18 @@
       <div id="creationDate_block">
         <label class="filter-section">Creation Date</label>
         <div class="range-date">
-          <label for="minCreationDate" id="minCreationDate_label">1950</label>&nbsp;to&nbsp;
-          <input name="minCreationDate" value="1950">
-          <input name="maxCreationDate" value="2020">
-          <label for="maxCreationDate" id="maxCreationDate_label">2020</label>
+          <label for="minCreationDate" id="minCreationDate_label">{{.RangeCreationDate.Min}}</label>&nbsp;to&nbsp;
+          <input name="minCreationDate" value="{{.RangeCreationDate.Min}}">
+          <input name="maxCreationDate" value="{{.RangeCreationDate.Max}}">
+          <label for="maxCreationDate" id="maxCreationDate_label">{{.RangeCreationDate.Max}}</label>
         </div>
 
         <div class="range-bouton">
           <span class="range-selected"></span>
         </div>
         <div class="range-input">
-          <input type="range" class="min" min="1950" max="2020" value="1950" step="1">
-          <input type="range" class="max" min="1950" max="2020" value="2020" step="1">
+          <input type="range" class="min" min="{{.RangeCreationDate.Min}}" max="{{.RangeCreationDate.Max}}" value="{{.RangeCreationDate.Min}}" step="1">
+          <input type="range" class="max" min="{{.RangeCreationDate.Min}}" max="{{.RangeCreationDate.Max}}" value="{{.RangeCreationDate.Max}}" step="1">
         </div>
       </div>
 
@@ -82,18 +82,18 @@
         <label class="filter-section">First Album</label>
 
         <div class="range-dates">
-          <label id="minFirstAlbum_label">1950</label>&nbsp;to&nbsp;
-          <input name="minFirstAlbum" value="1950">
-          <input name="maxFirstAlbum" value="2020">
-          <label id="maxFirstAlbum_label">2020</label>
+          <label id="minFirstAlbum_label">{{.RangeFirstAlbum.Min}}</label>&nbsp;to&nbsp;
+          <input name="minFirstAlbum" value="{{.RangeFirstAlbum.Min}}">
+          <input name="maxFirstAlbum" value="{{.RangeFirstAlbum.Max}}">
+          <label id="maxFirstAlbum_label">{{.RangeFirstAlbum.Max}}</label>
         </div>
 
         <div class="range-bouton">
           <span class="range-selecteds"></span>
         </div>
         <div class="range-inputs">
-          <input type="range" class="mindate" min="1950" max="2020" value="1950" step="1">
-          <input type="range" class="maxdate" min="1950" max="2020" value="2020" step="1">
+          <input type="range" class="mindate" min="{{.RangeFirstAlbum.Min}}" max="{{.RangeFirstAlbum.Max}}" value="{{.RangeFirstAlbum.Min}}" step="1">
+          <input type="range" class="maxdate" min="{{.RangeFirstAlbum.Min}}" max="{{.RangeFirstAlbum.Max}}" value="{{.RangeFirstAlbum.Max}}" step="1">
         </div>
       </div>
 
